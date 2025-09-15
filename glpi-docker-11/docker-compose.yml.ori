@@ -1,0 +1,37 @@
+services:
+  glpi:
+    image: "glpi/glpi:11.0.0-rc4"
+    restart: unless-stopped
+    ports:
+      - "8011:80"
+    volumes:
+      - "./storage/glpi:/var/glpi:rw"
+      - "./storage/marketplace:/var/glpi/marketplace:rw"
+      - "./glpi/entrypoint.sh:/entrypoint.sh"
+    entrypoint: ["/entrypoint.sh"]
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    container_name: glpi-docker-11
+
+  db:
+    image: "mariadb:10.7"
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: glpi
+      MARIADB_USER: glpi
+      MARIADB_PASSWORD: glpi
+      TZ: ${TZ}
+    volumes:
+      - "./storage/mysql:/var/lib/mysql"
+      - "./init/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh"
+    healthcheck:
+     #test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "${GLPI_DB_USER}", "--password=${GLPI_DB_PASSWORD}"]
+      test: ["CMD-SHELL", "echo 'SELECT 1' | mariadb -u${GLPI_DB_USER} -p${GLPI_DB_PASSWORD} ${GLPI_DB_NAME} || exit 1"]
+
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    container_name: glpi-docker-db-11

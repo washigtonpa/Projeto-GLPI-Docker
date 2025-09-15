@@ -1,0 +1,236 @@
+[2025-09-11 02:33:02] glpi.WARNING:   *** Warning: mkdir(): File exists at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Glpi/UI/IllustrationManager.php:252          Safe\mkdir()
+  ./src/Glpi/UI/IllustrationManager.php:90           Glpi\UI\IllustrationManager->validateOrInitCustomContentDir()
+  ...ion/View/Extension/IllustrationExtension.php:49 Glpi\UI\IllustrationManager->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:117 Glpi\Application\View\Extension\IllustrationExtension->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:142 Glpi\Application\View\TemplateRenderer->__construct()
+  ./src/Glpi/Controller/AbstractController.php:66    Glpi\Application\View\TemplateRenderer::getInstance()
+  ./src/Glpi/Controller/InstallController.php:144    Glpi\Controller\AbstractController->render()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\InstallController->installRequired()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:33:02] glpi.WARNING:   *** Warning: mkdir(): File exists at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Glpi/UI/IllustrationManager.php:252          Safe\mkdir()
+  ./src/Glpi/UI/IllustrationManager.php:90           Glpi\UI\IllustrationManager->validateOrInitCustomContentDir()
+  ...ion/View/Extension/IllustrationExtension.php:49 Glpi\UI\IllustrationManager->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:117 Glpi\Application\View\Extension\IllustrationExtension->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:142 Glpi\Application\View\TemplateRenderer->__construct()
+  ./src/Glpi/Controller/AbstractController.php:66    Glpi\Application\View\TemplateRenderer::getInstance()
+  ./src/Glpi/Controller/InstallController.php:144    Glpi\Controller\AbstractController->render()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\InstallController->installRequired()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:33:02] glpi.CRITICAL:   *** Uncaught PHP Exception Safe\Exceptions\FilesystemException: "An error occurred" at FilesystemException.php line 9
+  Backtrace :
+  .../generated/Exceptions/FilesystemException.php:9 
+  ...gmachine/safe/generated/8.4/filesystem.php:1241 Safe\Exceptions\FilesystemException::createFromPhpError()
+  ./src/Glpi/UI/IllustrationManager.php:252          Safe\mkdir()
+  ./src/Glpi/UI/IllustrationManager.php:90           Glpi\UI\IllustrationManager->validateOrInitCustomContentDir()
+  ...ion/View/Extension/IllustrationExtension.php:49 Glpi\UI\IllustrationManager->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:117 Glpi\Application\View\Extension\IllustrationExtension->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:142 Glpi\Application\View\TemplateRenderer->__construct()
+  ./src/Glpi/Controller/AbstractController.php:66    Glpi\Application\View\TemplateRenderer::getInstance()
+  ./src/Glpi/Controller/InstallController.php:144    Glpi\Controller\AbstractController->render()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\InstallController->installRequired()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:33:02] glpi.CRITICAL:   *** Uncaught PHP Exception Safe\Exceptions\FilesystemException: "An error occurred" at FilesystemException.php line 9
+  Backtrace :
+  .../generated/Exceptions/FilesystemException.php:9 
+  ...gmachine/safe/generated/8.4/filesystem.php:1241 Safe\Exceptions\FilesystemException::createFromPhpError()
+  ./src/Glpi/UI/IllustrationManager.php:252          Safe\mkdir()
+  ./src/Glpi/UI/IllustrationManager.php:90           Glpi\UI\IllustrationManager->validateOrInitCustomContentDir()
+  ...ion/View/Extension/IllustrationExtension.php:49 Glpi\UI\IllustrationManager->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:117 Glpi\Application\View\Extension\IllustrationExtension->__construct()
+  .../Glpi/Application/View/TemplateRenderer.php:142 Glpi\Application\View\TemplateRenderer->__construct()
+  ./src/Glpi/Controller/AbstractController.php:66    Glpi\Application\View\TemplateRenderer::getInstance()
+  ./src/Glpi/Controller/InstallController.php:144    Glpi\Controller\AbstractController->render()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\InstallController->installRequired()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:33:03] glpi.WARNING:   *** Warning: Undefined array key "url_base" at Html.php line 602
+  Backtrace :
+  ./src/Html.php:602                                 
+  ./src/Glpi/Controller/ErrorController.php:182      Html::getBackUrl()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\ErrorController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ...http-kernel/EventListener/ErrorListener.php:117 Symfony\Component\HttpKernel\HttpKernel->handle()
+  ...ymfony/event-dispatcher/EventDispatcher.php:260 Symfony\Component\HttpKernel\EventListener\ErrorListener->onKernelException()
+  ...ymfony/event-dispatcher/EventDispatcher.php:220 Symfony\Component\EventDispatcher\EventDispatcher::{closure:Symfony\Component\EventDispatcher\EventDispatcher::optimizeListeners():255}()
+  ...symfony/event-dispatcher/EventDispatcher.php:56 Symfony\Component\EventDispatcher\EventDispatcher->callListeners()
+  ./vendor/symfony/http-kernel/HttpKernel.php:239    Symfony\Component\EventDispatcher\EventDispatcher->dispatch()
+  ./vendor/symfony/http-kernel/HttpKernel.php:91     Symfony\Component\HttpKernel\HttpKernel->handleThrowable()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:33:03] glpi.WARNING:   *** Warning: Undefined array key "url_base" at Html.php line 602
+  Backtrace :
+  ./src/Html.php:602                                 
+  ./src/Glpi/Controller/ErrorController.php:182      Html::getBackUrl()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\ErrorController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ...http-kernel/EventListener/ErrorListener.php:117 Symfony\Component\HttpKernel\HttpKernel->handle()
+  ...ymfony/event-dispatcher/EventDispatcher.php:260 Symfony\Component\HttpKernel\EventListener\ErrorListener->onKernelException()
+  ...ymfony/event-dispatcher/EventDispatcher.php:220 Symfony\Component\EventDispatcher\EventDispatcher::{closure:Symfony\Component\EventDispatcher\EventDispatcher::optimizeListeners():255}()
+  ...symfony/event-dispatcher/EventDispatcher.php:56 Symfony\Component\EventDispatcher\EventDispatcher->callListeners()
+  ./vendor/symfony/http-kernel/HttpKernel.php:239    Symfony\Component\EventDispatcher\EventDispatcher->dispatch()
+  ./vendor/symfony/http-kernel/HttpKernel.php:91     Symfony\Component\HttpKernel\HttpKernel->handleThrowable()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:39:13] glpi.WARNING:   *** Test logger
+[2025-09-11 02:39:13] glpi.WARNING:   *** Warning: mkdir(): No such file or directory at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Toolbox.php:1107                             Safe\mkdir()
+  ...System/Requirement/DirectoryWriteAccess.php:122 Toolbox::testWriteAccessToDirectory()
+  .../System/Requirement/AbstractRequirement.php:131 Glpi\System\Requirement\DirectoryWriteAccess->check()
+  .../System/Requirement/AbstractRequirement.php:212 Glpi\System\Requirement\AbstractRequirement->doCheck()
+  .../twig/twig/src/Extension/CoreExtension.php:1909 Glpi\System\Requirement\AbstractRequirement->isValidated()
+  ...tes/e7/e77b6958d47e2ef2e5031e646816bc9e.php:113 Twig\Extension\CoreExtension::getAttribute()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_60c81f1ec42a94aa2ee2d8254588e5a8->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/Template.php:373            Twig\Template->display()
+  ./vendor/twig/twig/src/TemplateWrapper.php:51      Twig\Template->render()
+  .../twig/twig/src/Extension/CoreExtension.php:1520 Twig\TemplateWrapper->render()
+  ...ates/f1/f16778cbca1221a214bff2243dbd85f2.php:82 Twig\Extension\CoreExtension::include()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_9525e388c05c577c55a363e8f4d04f9f->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/TemplateWrapper.php:61      Twig\Template->display()
+  .../Glpi/Application/View/TemplateRenderer.php:188 Twig\TemplateWrapper->display()
+  ./install/install.php:139                          Glpi\Application\View\TemplateRenderer->display()
+  ./install/install.php:519                          step1()
+  ...Glpi/Controller/LegacyFileLoadController.php:63 require()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\LegacyFileLoadController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:40:41] glpi.WARNING:   *** Test logger
+[2025-09-11 02:40:41] glpi.WARNING:   *** Warning: mkdir(): No such file or directory at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Toolbox.php:1107                             Safe\mkdir()
+  ...System/Requirement/DirectoryWriteAccess.php:122 Toolbox::testWriteAccessToDirectory()
+  .../System/Requirement/AbstractRequirement.php:131 Glpi\System\Requirement\DirectoryWriteAccess->check()
+  .../System/Requirement/AbstractRequirement.php:212 Glpi\System\Requirement\AbstractRequirement->doCheck()
+  .../twig/twig/src/Extension/CoreExtension.php:1909 Glpi\System\Requirement\AbstractRequirement->isValidated()
+  ...tes/e7/e77b6958d47e2ef2e5031e646816bc9e.php:113 Twig\Extension\CoreExtension::getAttribute()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_60c81f1ec42a94aa2ee2d8254588e5a8->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/Template.php:373            Twig\Template->display()
+  ./vendor/twig/twig/src/TemplateWrapper.php:51      Twig\Template->render()
+  .../twig/twig/src/Extension/CoreExtension.php:1520 Twig\TemplateWrapper->render()
+  ...ates/f1/f16778cbca1221a214bff2243dbd85f2.php:82 Twig\Extension\CoreExtension::include()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_9525e388c05c577c55a363e8f4d04f9f->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/TemplateWrapper.php:61      Twig\Template->display()
+  .../Glpi/Application/View/TemplateRenderer.php:188 Twig\TemplateWrapper->display()
+  ./install/install.php:139                          Glpi\Application\View\TemplateRenderer->display()
+  ./install/install.php:519                          step1()
+  ...Glpi/Controller/LegacyFileLoadController.php:63 require()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\LegacyFileLoadController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:46:02] glpi.WARNING:   *** Test logger
+[2025-09-11 02:46:02] glpi.WARNING:   *** Warning: mkdir(): No such file or directory at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Toolbox.php:1107                             Safe\mkdir()
+  ...System/Requirement/DirectoryWriteAccess.php:122 Toolbox::testWriteAccessToDirectory()
+  .../System/Requirement/AbstractRequirement.php:131 Glpi\System\Requirement\DirectoryWriteAccess->check()
+  .../System/Requirement/AbstractRequirement.php:212 Glpi\System\Requirement\AbstractRequirement->doCheck()
+  .../twig/twig/src/Extension/CoreExtension.php:1909 Glpi\System\Requirement\AbstractRequirement->isValidated()
+  ...tes/e7/e77b6958d47e2ef2e5031e646816bc9e.php:113 Twig\Extension\CoreExtension::getAttribute()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_60c81f1ec42a94aa2ee2d8254588e5a8->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/Template.php:373            Twig\Template->display()
+  ./vendor/twig/twig/src/TemplateWrapper.php:51      Twig\Template->render()
+  .../twig/twig/src/Extension/CoreExtension.php:1520 Twig\TemplateWrapper->render()
+  ...ates/f1/f16778cbca1221a214bff2243dbd85f2.php:82 Twig\Extension\CoreExtension::include()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_9525e388c05c577c55a363e8f4d04f9f->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/TemplateWrapper.php:61      Twig\Template->display()
+  .../Glpi/Application/View/TemplateRenderer.php:188 Twig\TemplateWrapper->display()
+  ./install/install.php:139                          Glpi\Application\View\TemplateRenderer->display()
+  ./install/install.php:519                          step1()
+  ...Glpi/Controller/LegacyFileLoadController.php:63 require()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\LegacyFileLoadController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:50:07] glpi.WARNING:   *** Test logger
+[2025-09-11 02:50:07] glpi.WARNING:   *** Warning: mkdir(): No such file or directory at filesystem.php line 1238
+  Backtrace :
+  ...gmachine/safe/generated/8.4/filesystem.php:1238 
+  ./src/Toolbox.php:1107                             Safe\mkdir()
+  ...System/Requirement/DirectoryWriteAccess.php:122 Toolbox::testWriteAccessToDirectory()
+  .../System/Requirement/AbstractRequirement.php:131 Glpi\System\Requirement\DirectoryWriteAccess->check()
+  .../System/Requirement/AbstractRequirement.php:212 Glpi\System\Requirement\AbstractRequirement->doCheck()
+  .../twig/twig/src/Extension/CoreExtension.php:1909 Glpi\System\Requirement\AbstractRequirement->isValidated()
+  ...tes/e7/e77b6958d47e2ef2e5031e646816bc9e.php:113 Twig\Extension\CoreExtension::getAttribute()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_60c81f1ec42a94aa2ee2d8254588e5a8->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/Template.php:373            Twig\Template->display()
+  ./vendor/twig/twig/src/TemplateWrapper.php:51      Twig\Template->render()
+  .../twig/twig/src/Extension/CoreExtension.php:1520 Twig\TemplateWrapper->render()
+  ...ates/f1/f16778cbca1221a214bff2243dbd85f2.php:82 Twig\Extension\CoreExtension::include()
+  ./vendor/twig/twig/src/Template.php:402            __TwigTemplate_9525e388c05c577c55a363e8f4d04f9f->doDisplay()
+  ./vendor/twig/twig/src/Template.php:358            Twig\Template->yield()
+  ./vendor/twig/twig/src/TemplateWrapper.php:61      Twig\Template->display()
+  .../Glpi/Application/View/TemplateRenderer.php:188 Twig\TemplateWrapper->display()
+  ./install/install.php:139                          Glpi\Application\View\TemplateRenderer->display()
+  ./install/install.php:519                          step1()
+  ...Glpi/Controller/LegacyFileLoadController.php:63 require()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\LegacyFileLoadController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-11 02:54:28] glpi.WARNING:   *** Test logger
+[2025-09-11 03:06:23] glpi.WARNING:   *** Test logger
+[2025-09-11 03:24:08] glpi.ERROR:   *** Connection timed out after 5036 milliseconds
+  Backtrace :
+  ...achine/safe/lib/Exceptions/CurlException.php:12 
+  ...thecodingmachine/safe/generated/8.4/curl.php:69 Safe\Exceptions\CurlException::createFromPhpError()
+  ./src/Toolbox.php:1473                             Safe\curl_exec()
+  ./src/Toolbox.php:1367                             Toolbox::doCallCurl()
+  ./src/GLPINetwork.php:274                          Toolbox::callCurl()
+  ./src/Glpi/Marketplace/View.php:167                GLPINetwork::isServicesAvailable()
+  ./src/Glpi/Marketplace/View.php:227                Glpi\Marketplace\View::checkRegistrationStatus()
+  ./src/Glpi/Marketplace/View.php:137                Glpi\Marketplace\View::installed()
+  ./src/CommonGLPI.php:694                           Glpi\Marketplace\View::displayTabContentForItem()
+  ./ajax/common.tabs.php:108                         CommonGLPI::displayStandardTab()
+  ...Glpi/Controller/LegacyFileLoadController.php:63 require()
+  ./vendor/symfony/http-kernel/HttpKernel.php:181    Glpi\Controller\LegacyFileLoadController->__invoke()
+  ./vendor/symfony/http-kernel/HttpKernel.php:76     Symfony\Component\HttpKernel\HttpKernel->handleRaw()
+  ./vendor/symfony/http-kernel/Kernel.php:197        Symfony\Component\HttpKernel\HttpKernel->handle()
+  ./public/index.php:70                              Symfony\Component\HttpKernel\Kernel->handle()
+
+[2025-09-13 03:30:48] glpi.WARNING:   *** Test logger
+[2025-09-13 03:30:48] glpi.CRITICAL:   *** Error thrown while running command "{command}". Message: "{message}"
+  Backtrace :
+  ./src/Glpi/Console/AbstractCommand.php:120         
+  ./src/Glpi/Console/AbstractCommand.php:103         Glpi\Console\AbstractCommand->initDbConnection()
+  ./vendor/symfony/console/Command/Command.php:292   Glpi\Console\AbstractCommand->initialize()
+  ./vendor/symfony/console/Application.php:1096      Symfony\Component\Console\Command\Command->run()
+  ./src/Glpi/Console/Application.php:320             Symfony\Component\Console\Application->doRunCommand()
+  ./vendor/symfony/console/Application.php:324       Glpi\Console\Application->doRunCommand()
+  ./vendor/symfony/console/Application.php:175       Symfony\Component\Console\Application->doRun()
+  ./bin/console:144                                  Symfony\Component\Console\Application->run()
+

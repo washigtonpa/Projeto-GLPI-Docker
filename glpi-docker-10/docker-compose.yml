@@ -1,0 +1,47 @@
+services:
+  glpi:
+    image: "glpi/glpi:10.0.20"
+#   restart: unless-stopped
+    volumes:
+      - "./storage/glpi/files:/var/glpi/files:rw"
+      - "./storage/glpi/config:/var/glpi/config:rw"
+      - "./storage/marketplace:/var/glpi/marketplace:rw"
+      - "./glpi/entrypoint.sh:/entrypoint.sh"
+    entrypoint: ["/entrypoint.sh"]
+    env_file: .env
+    container_name: glpi-docker-10
+    user: "33:33"
+    networks:
+      - default
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.glpi.rule=Host(`glpi10.wpacloud.tech`)"
+      - "traefik.http.routers.glpi.entrypoints=websecure"
+      - "traefik.http.routers.glpi.tls.certresolver=myresolver"
+      - "traefik.http.services.glpi.loadbalancer.server.port=80"
+
+  db:
+    image: "mariadb:10.11"
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=rootpass
+      - MARIADB_DATABASE=glpi
+      - MARIADB_USER=glpi
+      - MARIADB_PASSWORD=glpi
+      - TZ=${TZ}
+    volumes:
+      - "./storage/mysql:/var/lib/mysql"
+      - "./init/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh"
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb -u${GLPI_DB_USER} -p${GLPI_DB_PASSWORD} ${GLPI_DB_NAME} -e 'SELECT 1' || exit 1"]
+      interval: 10s
+    container_name: glpi-docker-db-10
+
+networks:
+  proxy:
+    name: proxy
+    external: true
+  default:
