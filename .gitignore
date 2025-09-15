@@ -1,0 +1,4 @@
+
+# Ignorar dados do MySQL
+glpi-docker-10/storage/mysql/
+glpi-docker-11/storage/mysql/
