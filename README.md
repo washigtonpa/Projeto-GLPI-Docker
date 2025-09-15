@@ -53,10 +53,10 @@ Snippet de código
 
 * Variáveis do Banco de Dados MariaDB
 
-    GLPI_DB_ROOT_PASSWORD=rootpass
-    GLPI_DB_NAME=glpi
-    GLPI_DB_USER=glpi
-    GLPI_DB_PASSWORD=glpi     
+        GLPI_DB_ROOT_PASSWORD=rootpass
+        GLPI_DB_NAME=glpi
+        GLPI_DB_USER=glpi
+        GLPI_DB_PASSWORD=glpi     
 
 * Outras Variáveis
 TZ=America/Sao_Paulo
