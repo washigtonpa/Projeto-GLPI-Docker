@@ -63,23 +63,22 @@ TZ=America/Sao_Paulo
 
 ## 2. Arquivo glpi/entrypoint.sh
 
-Este script é executado toda vez que o contêiner do GLPI é iniciado. Ele garante que as permissões dos diretórios estejam corretas e que a aplicação seja iniciada de forma consistente.
+O entrypoint.sh é o primeiro script a ser executado quando o contêiner do GLPI é iniciado. Ele serve para realizar tarefas de preparação que o contêiner precisa antes de começar a rodar a aplicação GLPI em si.
 
 Crie o arquivo glpi/entrypoint.sh e adicione o conteúdo abaixo. Dê permissão de execução: chmod +x glpi/entrypoint.sh.
-Bash
 
----
-#!/bin/bash
+    Bash
+    ---
+    #!/bin/bash
+    
+    echo "Iniciando GLPI..."
+    
+    * Tenta habilitar timezones, mas não trava se falhar
+    /var/www/glpi/bin/console database:enable_timezones || echo "Timezones não habilitados (GLPI pode não estar instalado ainda)"
+    
+    * Inicia o Apache normalmente
+    exec docker-php-entrypoint apache2-foreground
 
-echo "Iniciando GLPI..."
-
-* Tenta habilitar timezones, mas não trava se falhar
-/var/www/glpi/bin/console database:enable_timezones || echo "Timezones não habilitados (GLPI pode não estar instalado ainda)"
-
-* Inicia o Apache normalmente
-exec docker-php-entrypoint apache2-foreground
-
----
 
 * Garante que os diretórios necessários existam
 mkdir -p /var/glpi/files
@@ -96,13 +95,14 @@ exec docker-php-entrypoint "$@"
 Este script é executado apenas na primeira vez que o contêiner do MariaDB é criado. Ele pode ser usado para executar comandos SQL iniciais, como a criação de um usuário com privilégios específicos.
 
 Crie o arquivo init/init-db.sh com o seguinte conteúdo:
-Bash
 
----
-#!/bin/bash
-echo "GRANT SELECT ON mysql.time_zone_name TO 'glpi'@'%'; FLUSH PRIVILEGES;" | mariadb -u root -p"rootpass"
-
----
+    Bash
+    
+    ---
+    #!/bin/bash
+    echo "GRANT SELECT ON mysql.time_zone_name TO 'glpi'@'%'; FLUSH PRIVILEGES;" | mariadb -u root -p"rootpass"
+    
+    ---
 
 ## 4. Configuração Inicial Comum
 
