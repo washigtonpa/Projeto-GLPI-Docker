@@ -26,6 +26,7 @@ A estrutura de diretórios foi projetada para ser modular e fácil de gerenciar,
 
 ---
     Bash
+
     glpi-docker/
     ├── .env                  # Armazena as variáveis de ambiente (senhas, usuários)
     ├── docker-compose.yml    # Orquestra a criação dos contêineres
@@ -133,11 +134,10 @@ sudo chmod -R 775 storage
 
 Esta versão do GLPI gerencia a criação de subdiretórios automaticamente, simplificando a configuração.
 
-* 5.1. Arquivo docker-compose.yml
+* 5.1. Arquivo docker-compose.yml, Crie um arquivo chamado docker-compose.yml na raiz do seu projeto com o seguinte conteúdo.
 
-Crie um arquivo chamado docker-compose.yml na raiz do seu projeto com o seguinte conteúdo.
 YAML
-  ---
+
     services:
       glpi:
         image: "glpi/glpi:11.0.0-rc4"
@@ -155,10 +155,19 @@ YAML
           - default
           - proxy
         labels:
+          # --- Configuração do Traefik ---
           - "traefik.enable=true"
+          # Define que este serviço pertence à rede do proxy para o Traefik
+          - "traefik.docker.network=proxy"
+          # --- Roteador HTTP ---
+          # Cria um roteador chamado 'glpi' que responde no domínio abaixo
           - "traefik.http.routers.glpi.rule=Host(`glpi11.wpacloud.tech`)"
+          # Associa este roteador ao entrypoint seguro (HTTPS)
           - "traefik.http.routers.glpi.entrypoints=websecure"
-          - "traefik.http.routers.glpi.tls.certresolver=myresolver"
+          # HABILITA o TLS para este roteador (aqui está a correção principal)
+          - "traefik.http.routers.glpi.tls=true"
+          # --- Serviço ---
+          # Define qual porta interna do container o Traefik deve usar
           - "traefik.http.services.glpi.loadbalancer.server.port=80"
       db:
         image: "mariadb:10.11"
@@ -183,7 +192,7 @@ YAML
         name: proxy
         external: true
       default:
-    ---
+        name: glpi_net #rede interna
 
 ## 6. Opção B: GLPI v10.0.20
 
@@ -225,13 +234,22 @@ Crie um arquivo docker-compose.yml com a seguinte configuração.
         networks:
           - default
           - proxy
-        labels:
-          - "traefik.enable=true"
-          - "traefik.http.routers.glpi.rule=Host(`glpi10.wpacloud.tech`)"
-          - "traefik.http.routers.glpi.entrypoints=websecure"
-          - "traefik.http.routers.glpi.tls.certresolver=myresolver"
-          - "traefik.http.services.glpi.loadbalancer.server.port=80"
 
+        labels:
+          # --- Configuração do Traefik ---
+          - "traefik.enable=true"
+          # Define que este serviço pertence à rede do proxy para o Traefik
+          - "traefik.docker.network=proxy"
+          # --- Roteador HTTP ---
+          # Cria um roteador chamado 'glpi' que responde no domínio abaixo
+          - "traefik.http.routers.glpi.rule=Host(`glpi11.wpacloud.tech`)"
+          # Associa este roteador ao entrypoint seguro (HTTPS)
+          - "traefik.http.routers.glpi.entrypoints=websecure"
+          # HABILITA o TLS para este roteador (aqui está a correção principal)
+          - "traefik.http.routers.glpi.tls=true"
+          # --- Serviço ---
+          # Define qual porta interna do container o Traefik deve usar
+          - "traefik.http.services.glpi.loadbalancer.server.port=80"
       db:
         image: "mariadb:10.11"
         restart: unless-stopped
@@ -256,49 +274,111 @@ Crie um arquivo docker-compose.yml com a seguinte configuração.
         name: proxy
         external: true
       default:
+        name: glpi_net #rede interna
 
 ## 7. Configuração do Traefik
 
+  * Estrutura das pastas
+  
+        traefik/
+        certs/
+          traefik.crt
+          traefik.key
+        traefik.yml
+        docker-compose.yml
+
 Crie um docker-compose.yml separado para o Traefik. Ele atuará como o proxy reverso para todos os seus serviços.
 
-* 7.1. Arquivo docker-compose.yml do Traefik
+* 7.1 Gerar o certificado com OpenSSL na VM de Docker.
+
+  *Criar a pasta do certificado no mesmo diretorio onde está o compose do Traefik
+   mkdir -p ./certs
+
+  *Executar os comandos abaixo:
+
+    mkdir -p ./certs
+
+      openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
+        -nodes -keyout ./certs/traefik.key \
+        -out ./certs/traefik.crt \
+        -subj "/CN=traefik.wpacloud.tech" \
+        -addext "subjectAltName=DNS:traefik.wpacloud.tech"
+
+* 7.2. Arquivo docker-compose.yml do Traefik
 
       YAML
+          services:
+        4   traefik:
+        5     image: traefik:v3.0
+        6     container_name: traefik
+        7     restart: unless-stopped
+        8     ports:
+        9       - "80:80"
+        10       - "443:443"
+        11       # A porta 8080 só é necessária se você quiser acessar a API/Dashboard sem o Traefik rotear para ela.
+        12       # - "8080:8080" 
+        13     volumes:
+        14       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        15       - "./traefik.yml:/etc/traefik/traefik.yml:ro" # Monta o arquivo de configuração estática
+        16       - "./certs:/certs:ro" # Monta os certificados em modo somente leitura
+        17     labels:
+        18       - "traefik.enable=true"
+        19       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.wpacloud.tech`)"
+        20       - "traefik.http.routers.traefik-dashboard.service=api@internal"
+        21       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+        22       - "traefik.http.routers.traefik-dashboard.tls=true" # Habilita TLS para este router
+        23     networks:
+        24       - proxy
+        25
+        26 networks:
+        27   proxy:
+        28     name: proxy
+        29     external: true
 
-      ervices:
-        traefik:
-          image: traefik:v3.0
-          container_name: traefik
-          restart: unless-stopped
-          command:
-            - "--api.dashboard=true"
-            - "--providers.docker=true"
-            - "--entrypoints.web.address=:80"
-            - "--entrypoints.websecure.address=:443"
-            - "--entrypoints.web.http.redirections.entrypoint.to=websecure" # Redireciona HTTP para HTTPS
-          ports:
-            - "80:80"
-            - "443:443"
-            - "8080:8080"
-          volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock:ro"
-          labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.traefik.rule=Host(`traefik.wpacloud.tech`)"
-            - "traefik.http.routers.traefik.service=api@internal"
-            - "traefik.http.routers.traefik.entrypoints=websecure"
-            - "traefik.http.routers.traefik.tls=true" # Habilita o TLS (HTTPS) com certificado de teste
-          # - "traefik.http.routers.traefik.middlewares=auth"
-          # - "traefik.http.middlewares.auth.basicauth.users=user:senha-criptografada"
-            - "traefik.docker.network=proxy"
-          networks:
-            - default
-            - proxy
-      networks:
-        proxy:
-          name: proxy
-          external: true
-        default:
+    *Arquivo traefik.yml do Traefik   
+
+      
+        3 # Definição dos pontos de entrada (HTTP e HTTPS)
+        4 entryPoints:
+        5   web:
+        6     address: ":80"
+        7     # Redireciona todo o tráfego de HTTP (web) para HTTPS (websecure)
+        8     http:
+        9       redirections:
+        10         entryPoint:
+        11           to: websecure
+        12           scheme: https
+        13
+        14   websecure:
+        15     address: ":443"
+        16     # Habilita TLS no entrypoint HTTPS
+        17     http:
+        18       tls: {}
+        19
+        20 # Habilita a API e o Dashboard
+        21 api:
+        22   dashboard: true
+        23   insecure: true # CUIDADO: Permite acesso ao dashboard via :8080 sem autenticação. Remova em produção.
+        24
+        25 # Configuração do provedor Docker
+        26 providers:
+        27   docker:
+        28     exposedByDefault: false # Boa prática para não expor todos os containers por padrão
+        29     network: proxy # Diz ao Traefik para usar a rede 'proxy' para se conectar aos containers
+        30
+        31 # ONDE A MÁGICA ACONTECE: Seção para definir os certificados
+        32 tls:
+        33   certificates:
+        34     - certFile: "/certs/traefik.crt"
+        35       keyFile: "/certs/traefik.key"
+
+
+* 7.3. Importar o certificado para sua maquina local (cliente)
+Para evitar o aviso de "site não confiável", você pode importar o certificado no sistema:
+
+      sudo cp traefik.crt /usr/local/share/ca-certificates/traefik.crt
+      sudo update-ca-certificates
+
 
 ## 8. Notas e Solução de Problemas
 
@@ -311,3 +391,4 @@ Crie um docker-compose.yml separado para o Traefik. Ele atuará como o proxy rev
     Dashboard do Traefik: Para acessar o dashboard (na porta 8080).
 
 
+docker exec -it traefik cat /etc/traefik/traefik.yml
