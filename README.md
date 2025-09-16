@@ -114,7 +114,7 @@ Esses passos são obrigatórios para qualquer versão do GLPI que você escolher
 O Traefik precisa de uma rede dedicada para se comunicar com outros contêineres. Crie-a com o seguinte comando:
 Bash
 
-docker network create proxy
+    docker network create proxy
 
 * 4.2. Crie a Estrutura de Diretórios
 
