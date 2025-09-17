@@ -1,34 +1,29 @@
+# docker-compose.yml
+
 services:
   traefik:
     image: traefik:v3.0
     container_name: traefik
     restart: unless-stopped
-    command:
-      - "--api.dashboard=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure" # Redireciona HTTP para HTTPS
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
+      # A porta 8080 só é necessária se você quiser acessar a API/Dashboard sem o Traefik rotear para ela.
+      # - "8080:8080" 
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yml:/etc/traefik/traefik.yml:ro" # Monta o arquivo de configuração estática
+      - "./certs:/certs:ro" # Monta os certificados em modo somente leitura
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.wpacloud.tech`)"
-      - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.tls=true" # Habilita o TLS (HTTPS) com certificado de teste
-     # - "traefik.http.routers.traefik.middlewares=auth"
-     # - "traefik.http.middlewares.auth.basicauth.users=user:senha-criptografada"
-      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.wpacloud.tech`)"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls=true" # Habilita TLS para este router
     networks:
-      - default
       - proxy
+
 networks:
   proxy:
     name: proxy
     external: true
-  default:

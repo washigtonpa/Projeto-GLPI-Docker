@@ -1,0 +1,35 @@
+# traefik.yml
+
+# Definição dos pontos de entrada (HTTP e HTTPS)
+entryPoints:
+  web:
+    address: ":80"
+    # Redireciona todo o tráfego de HTTP (web) para HTTPS (websecure)
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: ":443"
+    # Habilita TLS no entrypoint HTTPS
+    http:
+      tls: {}
+
+# Habilita a API e o Dashboard
+api:
+  dashboard: true
+  insecure: true # CUIDADO: Permite acesso ao dashboard via :8080 sem autenticação. Remova em produção.
+
+# Configuração do provedor Docker
+providers:
+  docker:
+    exposedByDefault: false # Boa prática para não expor todos os containers por padrão
+    network: proxy # Diz ao Traefik para usar a rede 'proxy' para se conectar aos containers
+
+# ONDE A MÁGICA ACONTECE: Seção para definir os certificados
+tls:
+  certificates:
+    - certFile: "/certs/traefik.crt"
+      keyFile: "/certs/traefik.key"

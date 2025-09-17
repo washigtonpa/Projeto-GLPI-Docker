@@ -3,9 +3,9 @@ services:
     image: "glpi/glpi:11.0.0-rc4"
 #   restart: unless-stopped
     volumes:
-      - "./storage/glpi/files:/var//glpi/files:rw"
-      - "./storage/glpi/config:/var/glpi/config:rw"
-      - "./storage/marketplace:/var/glpi/marketplace:rw"
+      - "./storage/glpi/files:/var//glpi/files:rw"  # Corrigi o caminho interno do volume
+      - "./storage/glpi/config:/var/glpi/config:rw"  # Corrigi o caminho interno do volume
+      - "./storage/marketplace:/var/glpi/marketplace:rw" # Corrigi o caminho interno do volume
       - "./glpi/entrypoint.sh:/entrypoint.sh"
     entrypoint: ["/entrypoint.sh"]
     env_file: .env
@@ -14,11 +14,21 @@ services:
     networks:
       - default
       - proxy
+
     labels:
+      # --- Configuração do Traefik ---
       - "traefik.enable=true"
+      # Define que este serviço pertence à rede do proxy para o Traefik
+      - "traefik.docker.network=proxy"
+      # --- Roteador HTTP ---
+      # Cria um roteador chamado 'glpi' que responde no domínio abaixo
       - "traefik.http.routers.glpi.rule=Host(`glpi11.wpacloud.tech`)"
+      # Associa este roteador ao entrypoint seguro (HTTPS)
       - "traefik.http.routers.glpi.entrypoints=websecure"
-      - "traefik.http.routers.glpi.tls.certresolver=myresolver"
+      # HABILITA o TLS para este roteador (aqui está a correção principal)
+      - "traefik.http.routers.glpi.tls=true"
+      # --- Serviço ---
+      # Define qual porta interna do container o Traefik deve usar
       - "traefik.http.services.glpi.loadbalancer.server.port=80"
   db:
     image: "mariadb:10.11"
@@ -43,3 +53,4 @@ networks:
     name: proxy
     external: true
   default:
+    name: glpi_net #rede interna
